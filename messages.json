@@ -1,0 +1,15 @@
+[
+    {
+        "text": "Текст сообщения. Форматирование - html.",
+        "disable_web_page_preview": false,
+        "disable_notification": true,
+        "reply_markup": {
+            "buttons": [
+                {
+                    "text": "Текст кнопки",
+                    "url": "Ссылка"
+                }
+            ]
+        }
+    }
+]
