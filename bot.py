@@ -56,6 +56,12 @@ async def balance(message: types.Message):
     await the_counter(message)
 
 
+@dp.message_handler(commands=['get_chat'])
+async def get_chat(message: types.Message):
+    text = 'Chat ID: <code>' + str(message.chat.id) + '</code>.'
+    await message.reply(text)
+
+
 @dp.message_handler(commands=['test'])
 async def test(message: types.Message):
     await get_msg(message)
@@ -75,7 +81,8 @@ async def get_message(message: types.Message):
             User.delete().where(id == id).execute()
 
 
-
-
 if __name__ == '__main__':
+    bot.set_my_commands([types.BotCommand('send', 'Перевести монеты'),
+                         types.BotCommand('balance',
+                                          'Посмотреть баланс')])
     executor.start_polling(dp)
