@@ -8,8 +8,11 @@ from models import User
 import config as cfg
 
 
+counter = 0
+
+
 async def the_counter(message: types.Message):
-    from bot import counter
+    global counter
     counter += 1
     if counter >= cfg.counter_max:
         counter = 0
@@ -54,8 +57,8 @@ async def user_create(user: types.User):
 
 async def send(sum: int, message: types.Message):
     rtm = message.reply_to_message
-    from_user = get_user(str(message.from_user.id))
-    to_user = get_user(str(rtm.from_user.id))
+    from_user = await get_user(str(message.from_user.id))
+    to_user = await get_user(str(rtm.from_user.id))
     if from_user:
         if to_user:
             if from_user.balance >= sum:
@@ -70,8 +73,8 @@ async def send(sum: int, message: types.Message):
                 await message.reply('У вас недостаточно денег.')
         else:
             if rtm.from_user.is_bot == False:
-                user_create(rtm.from_user)
-                send(sum, message=message)
+                await user_create(rtm.from_user)
+                await send(sum, message=message)
     else:
-        user_create(message.from_user)
-        send(sum, message=message)
+        await user_create(message.from_user)
+        await send(sum, message=message)

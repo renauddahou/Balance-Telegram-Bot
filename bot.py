@@ -15,9 +15,6 @@ bot = Bot(token=cfg.bot_token, parse_mode='html')
 dp = Dispatcher(bot)
 
 
-counter = 0
-
-
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     if message.chat.type == 'private':
@@ -52,7 +49,11 @@ async def balance(message: types.Message):
     if user:
         await message.reply(f'Ваш баланс: {str(user.balance)} монет.')
     else:
-        await message.reply('У вас нет кошелька.')
+        if message.chat.id in cfg.aviable_chats:
+            await user_create(message.from_user)
+            await message.reply('Вы зарегистрировали кошелёк.')
+        else:
+            await message.reply('У вас нет кошелька.')
     await the_counter(message)
 
 
@@ -81,8 +82,12 @@ async def get_message(message: types.Message):
             User.delete().where(id == id).execute()
 
 
+async def on_startup(dp):
+    await bot.set_my_commands([types.BotCommand('send',
+                                                'Перевести монеты'),
+                               types.BotCommand('balance',
+                                                'Посмотреть баланс')])
+
+
 if __name__ == '__main__':
-    bot.set_my_commands([types.BotCommand('send', 'Перевести монеты'),
-                         types.BotCommand('balance',
-                                          'Посмотреть баланс')])
-    executor.start_polling(dp)
+    executor.start_polling(dp, on_startup=on_startup)
