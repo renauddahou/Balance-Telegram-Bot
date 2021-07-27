@@ -1,13 +1,13 @@
 [
     {
-        "text": "Текст сообщения. Форматирование - html.",
+        "text": "Texte du message. Le formatage est html.",
         "disable_web_page_preview": false,
         "disable_notification": true,
         "reply_markup": {
             "buttons": [
                 {
-                    "text": "Текст кнопки",
-                    "url": "Ссылка"
+                    "text": "Texte du bouton",
+                    "url": "Lien"
                 }
             ]
         }
