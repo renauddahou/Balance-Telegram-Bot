@@ -18,7 +18,7 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     if message.chat.type == 'private':
-        text = ('Привет. В личном чате тебе доступна только команада '
+        text = ("Salut. Dans le chat privé, vous ne pouvez accéder qu'au commande."
                 '/balance.')
         await message.answer(text)
 
@@ -33,12 +33,12 @@ async def send_cmd(message: types.Message):
             if message.reply_to_message:
                 await send(sum, message=message)
             else:
-                text = ('Чтобы перевести монеты, вам нужно ответить '
-                        'на сообщение получателя.')
+                text = ('Pour transférer les pièces, vous devez répondre '
+                        'au message du destinataire.')
                 await message.reply(text)
         except:
-            text = ('Вы неправильно ввели команду. Правильно так:'
-                    ' <code>/send сумма</code>')
+            text = ('Vous avez mal saisi la commande. La manière correcte est:'
+                    ' <code>/envoyer le montant</code>')
             await message.reply(text)
     await the_counter(message)
 
@@ -51,9 +51,9 @@ async def balance(message: types.Message):
     else:
         if message.chat.id in cfg.aviable_chats:
             await user_create(message.from_user)
-            await message.reply('Вы зарегистрировали кошелёк.')
+            await message.reply('Vous avez enregistré un portefeuille.')
         else:
-            await message.reply('У вас нет кошелька.')
+            await message.reply("Vous n'avez pas de portefeuille.")
     await the_counter(message)
 
 
@@ -83,10 +83,10 @@ async def get_message(message: types.Message):
 
 
 async def on_startup(dp):
-    await bot.set_my_commands([types.BotCommand('send',
-                                                'Перевести монеты'),
+    await bot.set_my_commands([types.BotCommand('envoyer',
+                                                'Convertir vos pièces en FIAT'),
                                types.BotCommand('balance',
-                                                'Посмотреть баланс')])
+                                                'Voir le solde')])
 
 
 if __name__ == '__main__':
