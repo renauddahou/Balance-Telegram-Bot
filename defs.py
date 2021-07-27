@@ -68,9 +68,9 @@ async def send(sum: int, message: types.Message):
                 from_user.save()
                 to_user.save()
 
-                await message.reply(f'Переведено {str(sum)} денег.')
+                await message.reply(f"Synchro et corrigé par {str(sum)} l'argent.")
             else:
-                await message.reply('У вас недостаточно денег.')
+                await message.reply("Vous n'avez pas assez d'argent.")
         else:
             if rtm.from_user.is_bot == False:
                 await user_create(rtm.from_user)
