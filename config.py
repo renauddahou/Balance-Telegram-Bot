@@ -3,7 +3,7 @@ import logging
 
 
 logging_level = logging.INFO
-bot_token = os.environ.get('1897550776:AAEedZUqU66DKQYWXUq0m60DqepSyTeYFQY')
+bot_token = os.environ.get(str(1897550776:AAEedZUqU66DKQYWXUq0m60DqepSyTeYFQY))
 aviable_chats = []
 counter_max = 25
 messages_url = 'wastechains'
